@@ -1,6 +1,27 @@
 <script>
-  import { Background, Canvas, Tile } from '$components';
+  import { Background, Canvas, Controls, Tile } from '$components';
+  import { cameraX, cameraY } from '$stores';
+
+  const tileMapWidth = 11 * 11;
+  const tileMap = [...Array(tileMapWidth * tileMapWidth)].map((_, i) => {
+    const x = i % tileMapWidth;
+    const y = Math.floor(i / tileMapWidth);
+    const tileNum =
+      i % tileMapWidth === Math.floor(tileMapWidth / 2) &&
+      Math.floor(i / tileMapWidth) === Math.floor(tileMapWidth / 2)
+        ? Math.floor(Math.random() * 230)
+        : 1;
+    return { tileNum, x, y };
+  });
+  $cameraX = 0;
+  $cameraY = (tileMapWidth / 2) * 8;
 </script>
+
+<svelte:head>
+  <title>World War Time</title>
+</svelte:head>
+
+<Controls />
 
 <!-- Canvas | Background -->
 <Canvas let:context>
@@ -10,10 +31,7 @@
 <!-- Canvas | Tiles -->
 <Canvas let:context>
   <Background {context} />
-  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} x="0" y="0" />
-  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} x="1" y="0" />
-  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0001.png`} x="0" y="1" />
-  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0001.png`} x="1" y="1" />
-  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0002.png`} x="0" y="2" />
-  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0002.png`} x="1" y="2" />
+  {#each tileMap as { tileNum, x, y }}
+    <Tile {context} {tileNum} {x} {y} />
+  {/each}
 </Canvas>

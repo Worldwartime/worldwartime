@@ -1,29 +1,35 @@
 <script>
   import { onMount } from 'svelte';
-
-  // props (internal)
-  let image;
-  let loaded;
+  import { images } from '$stores';
 
   // props (external)
   export let context;
-  export let height;
+  export let dHeight;
+  export let dWidth;
+  export let dX;
+  export let dY;
   export let src;
-  export let width;
-  export let x = 0;
-  export let y = 0;
+  export let sHeight;
+  export let sWidth;
+  export let sX = 0;
+  export let sY = 0;
 
-  $: if (context) {
-    if (loaded) context.drawImage(image, x, y, width, height);
-  }
-
-  onMount(() => {
-    image = new Image();
+  $: if ($images[src] === undefined) {
+    const image = new Image();
     image.onload = function () {
-      if (height === undefined) height = this.height;
-      if (width === undefined) width = this.width;
-      loaded = true;
+      if (dHeight === undefined) dHeight = this.height;
+      if (dWidth === undefined) dWidth = this.width;
+      if (sHeight === undefined) sHeight = this.height;
+      if (sWidth === undefined) sWidth = this.width;
+      $images[src] = image;
     };
     image.src = src;
-  });
+  }
+  $: if (context) {
+    if ($images[src]) {
+      context.drawImage($images[src], sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
+    }
+  }
+
+  onMount(() => {});
 </script>

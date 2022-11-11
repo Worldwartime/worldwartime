@@ -15,14 +15,17 @@
   let canvas;
   let context;
 
+  // props (external)
+  export let contextType = '2d';
+
   // props(dynamic)
   $: if (canvas) {
     if (browser) resizeHandler();
-    context = canvas.getContext('2d');
+    context = canvas.getContext(contextType);
   }
   $: classes = twMerge('absolute', $$props.class);
 </script>
 
 <canvas bind:this={canvas} class={classes} height={$height} width={$width} />
-<slot {canvas} {context} />
+<slot {canvas} {context} {contextType} />
 <svelte:window on:resize|passive={resizeHandler} />
