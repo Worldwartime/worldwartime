@@ -1,4 +1,5 @@
 <script>
+  import { twMerge } from 'tailwind-merge';
   import { browser } from '$app/environment';
   import { height, width } from '$stores';
 
@@ -19,8 +20,9 @@
     if (browser) resizeHandler();
     context = canvas.getContext('2d');
   }
+  $: classes = twMerge('absolute', $$props.class);
 </script>
 
-<canvas bind:this={canvas} height={$height} width={$width} />
+<canvas bind:this={canvas} class={classes} height={$height} width={$width} />
 <slot {canvas} {context} />
 <svelte:window on:resize|passive={resizeHandler} />
