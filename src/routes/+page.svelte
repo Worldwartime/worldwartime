@@ -1,5 +1,5 @@
 <script>
-  import { Background, Canvas, Image } from '$components';
+  import { Background, Canvas, Tile } from '$components';
 </script>
 
 <!-- Canvas | Background -->
@@ -10,8 +10,10 @@
 <!-- Canvas | Tiles -->
 <Canvas let:context>
   <Background {context} />
-  <Image {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} />
-  <Image {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} x="42" />
-  <Image {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} x="84" />
-  <Image {context} src={`./assets_pixel_50x50/isometric_pixel_0010.png`} x="21" y="12" />
+  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} x="0" y="0" />
+  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0000.png`} x="1" y="0" />
+  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0001.png`} x="0" y="1" />
+  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0001.png`} x="1" y="1" />
+  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0002.png`} x="0" y="2" />
+  <Tile {context} src={`./assets_pixel_50x50/isometric_pixel_0002.png`} x="1" y="2" />
 </Canvas>

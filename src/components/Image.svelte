@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { cameraX, cameraY, height as windowHeight, width as windowWidth } from '$stores';
 
   // props (internal)
   let image;
